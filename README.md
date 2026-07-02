@@ -1,71 +1,122 @@
 # Client Management API
 
-A production-ready Django REST API for managing clients, packages, subscriptions, payments, projects, and notes.
+A production-ready **Django REST Framework (DRF)** backend for managing clients, packages, subscriptions, payments, projects, and notes. The project includes **JWT Authentication**, **PostgreSQL**, **Docker support**, **Swagger/OpenAPI documentation**, and **Django Admin**.
 
 ---
 
-## Features
+# Project Overview
 
-- JWT Authentication
-- Client Management
-- Package Management
-- Subscription Management
-- Payment Tracking
-- Project Management
-- Notes Management
-- Dashboard Analytics
-- PostgreSQL Database
-- Docker Support
-- Swagger API Documentation
-- Django Admin
+The Client Management API is a RESTful backend application built using Django REST Framework. It enables organizations to manage client records, package subscriptions, payments, projects, and notes through secure REST APIs.
+
+This project was developed as part of a backend assessment and follows REST API best practices.
 
 ---
 
-## Tech Stack
+# Features
 
-- Python 3.13
-- Django 5
-- Django REST Framework
-- PostgreSQL
-- Docker
-- Gunicorn
-- drf-spectacular (Swagger)
+* JWT Authentication
+* User Registration & Login
+* Client Management (CRUD)
+* Package Management (CRUD)
+* Client Package Assignment
+* Payment Management
+* Project Management
+* Notes Management
+* Dashboard Analytics
+* Search, Filtering & Pagination
+* Soft Delete Support
+* PostgreSQL Integration
+* Docker & Docker Compose Support
+* Swagger/OpenAPI Documentation
+* Django Admin Panel
 
 ---
 
-## Installation
+# Tech Stack
 
-### Clone Repository
+* Python 3.11+ (Tested with Python 3.13)
+* Django 5
+* Django REST Framework
+* PostgreSQL
+* Docker
+* Docker Compose
+* Gunicorn
+* drf-spectacular (Swagger/OpenAPI)
+
+---
+
+# Project Structure
+
+```
+client-management-api/
+
+├── accounts/
+├── clients/
+├── config/
+├── core/
+├── dashboard/
+├── notes/
+├── packages/
+├── payments/
+├── projects/
+├── subscriptions/
+
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── manage.py
+├── README.md
+├── .env.example
+├── .gitignore
+└── .dockerignore
+```
+
+---
+
+# Prerequisites
+
+Install the following before running the project:
+
+* Python 3.11 or above
+* PostgreSQL
+* Git
+* Docker Desktop (Optional)
+
+---
+
+# Installation
+
+## 1. Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/client-management-api.git
+git clone https://github.com/07anushka/client-management-api.git
 
 cd client-management-api
 ```
 
 ---
 
-### Create Virtual Environment
+## 2. Create Virtual Environment
+
+### Windows
 
 ```bash
 python -m venv venv
-```
 
-Windows
-
-```bash
 venv\Scripts\activate
 ```
 
-Linux/Mac
+### Linux / macOS
 
 ```bash
+python3 -m venv venv
+
 source venv/bin/activate
 ```
 
 ---
 
-### Install Dependencies
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -73,9 +124,13 @@ pip install -r requirements.txt
 
 ---
 
-### Configure Environment Variables
+## 4. Configure Environment Variables
 
-Create a `.env` file.
+Create a file named:
+
+```
+.env
+```
 
 Example:
 
@@ -95,15 +150,31 @@ DB_PORT=5432
 
 ---
 
-### Run Migrations
+## 5. Configure PostgreSQL
+
+Ensure PostgreSQL is installed and running.
+
+Create a database named:
+
+```
+client_management
+```
+
+Update the credentials in the `.env` file if they differ from your local PostgreSQL setup.
+
+---
+
+## 6. Apply Database Migrations
 
 ```bash
+python manage.py makemigrations
+
 python manage.py migrate
 ```
 
 ---
 
-### Create Superuser
+## 7. Create Superuser
 
 ```bash
 python manage.py createsuperuser
@@ -111,13 +182,13 @@ python manage.py createsuperuser
 
 ---
 
-### Run Server
+## 8. Run Development Server
 
 ```bash
 python manage.py runserver
 ```
 
-Server:
+The application will be available at:
 
 ```
 http://127.0.0.1:8000/
@@ -125,21 +196,21 @@ http://127.0.0.1:8000/
 
 ---
 
-# Docker
+# Docker Setup
 
-Build
+## Build and Start Containers
 
 ```bash
 docker compose up --build
 ```
 
-Run
+## Start Existing Containers
 
 ```bash
 docker compose up
 ```
 
-Stop
+## Stop Containers
 
 ```bash
 docker compose down
@@ -149,19 +220,19 @@ docker compose down
 
 # API Documentation
 
-Swagger
+## Swagger UI
 
 ```
 http://localhost:8000/api/docs/
 ```
 
-Schema
+## OpenAPI Schema
 
 ```
 http://localhost:8000/api/schema/
 ```
 
-Admin
+## Django Admin
 
 ```
 http://localhost:8000/admin/
@@ -169,55 +240,141 @@ http://localhost:8000/admin/
 
 ---
 
-# API Modules
-
-- Accounts
-- Clients
-- Packages
-- Subscriptions
-- Payments
-- Projects
-- Notes
-- Dashboard
-
----
-
 # Authentication
 
-JWT Authentication
+The project uses JWT Authentication.
 
-- Register
-- Login
-- Refresh Token
-- Profile
+## Register
+
+```
+POST /api/accounts/register/
+```
+
+## Login
+
+```
+POST /api/accounts/login/
+```
+
+After login:
+
+1. Copy the **Access Token**
+2. Click **Authorize** in Swagger
+3. Enter:
+
+```
+Bearer <access_token>
+```
+
+You can now access all protected endpoints.
 
 ---
 
-# Project Structure
+# API Modules
 
+| Endpoint            | Description               |
+| ------------------- | ------------------------- |
+| /api/accounts/      | Authentication            |
+| /api/clients/       | Client Management         |
+| /api/packages/      | Package Management        |
+| /api/subscriptions/ | Client Package Assignment |
+| /api/payments/      | Payment Management        |
+| /api/projects/      | Project Management        |
+| /api/notes/         | Notes Management          |
+| /api/dashboard/     | Dashboard Analytics       |
+
+---
+
+# Database
+
+Database:
+
+* PostgreSQL
+
+Main Tables:
+
+* Users
+* Clients
+* Packages
+* Client Packages
+* Payments
+* Projects
+* Notes
+
+---
+
+# API Features
+
+* JWT Authentication
+* CRUD Operations
+* Dashboard Analytics
+* Search
+* Filtering
+* Pagination
+* Soft Delete
+* Swagger Documentation
+
+---
+
+# API Verification
+
+The following functionality has been verified:
+
+* User Registration
+* JWT Login
+* Create Client
+* Assign Package
+* Create Payment
+* Create Project
+* Update Project Status
+* Add Notes
+* Dashboard APIs
+
+---
+
+# Docker Support
+
+The project includes:
+
+* Dockerfile
+* Docker Compose
+* PostgreSQL Container
+* Gunicorn Application Server
+
+Run everything with:
+
+```bash
+docker compose up --build
 ```
-accounts/
-clients/
-dashboard/
-notes/
-packages/
-payments/
-projects/
-subscriptions/
 
-config/
+---
 
-Dockerfile
+# Future Improvements
 
-docker-compose.yml
-
-requirements.txt
-
-README.md
-```
+* Email Notifications
+* Client Activity Logs
+* Role-Based Access Control (RBAC)
+* File Upload Support
+* Report Generation
+* Unit Tests
+* Integration Tests
 
 ---
 
 # Author
 
-Anushka A Naik
+**Anushka A Naik**
+
+GitHub:
+
+https://github.com/07anushka
+
+Repository:
+
+https://github.com/07anushka/client-management-api
+
+---
+
+# License
+
+This project was developed as part of a Django REST Framework Backend Assessment for educational and evaluation purposes.
