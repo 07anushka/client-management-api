@@ -178,6 +178,8 @@ SIMPLE_JWT = {
 }
 
 import os
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
 
 LOGGING = {
     "version": 1,
@@ -194,7 +196,7 @@ LOGGING = {
         "file": {
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, "logs/app.log"),
+            "filename": os.path.join(LOG_DIR, "app.log"),
             "formatter": "standard",
         },
         "console": {
@@ -207,5 +209,4 @@ LOGGING = {
         "level": "INFO",
     },
 }
-
 
